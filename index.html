@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전달!</title>
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link href="./CSS/style.css" rel="stylesheet">
+    <!-- Fontawesome -->
+    <script src="https://kit.fontawesome.com/90a3894fee.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+</head>
+
+<!-- body start -->
+
+<body>
+    <section class="wrapper">
+        <center style="padding: 2vh; color: #fff; position: relative; z-index: 2; font-family: 'KCC-Hanbit';">
+            <h1>전달하고 싶은 말을 입력해보세요.</h1>
+        </center>
+        <form id="form" class="login-form">
+            <div class="int-area">
+                <input spellcheck="false" type="text" id="title" name="title" autocomplete="off" required />
+                <label for="title"><i class="fa-solid fa-paper-plane"></i> 제목</label>
+            </div>
+            <div style="height: 2vh;"></div>
+            <div class="int-area">
+                <textarea spellcheck="false" style="resize: none;" rows="1" type="text" id="content" name="content" autocomplete="off" required></textarea>
+                <label for="content"><i class="fa-solid fa-comment"></i> 내용</label>
+            </div>
+            <div style="height: 2vh;"></div>
+
+            <!-- 체크박스 부분 -->
+
+            <div id="check-div">
+                <p>배경 이미지 사용</p> <input id="bgimg" type="checkbox" onclick="
+                if (document.getElementById('bgimg').checked == true) {
+                    document.getElementById('bgimg-div').style.display = 'block';
+                } else {
+                    document.getElementById('bgimg-div').style.display = 'none';
+                }">
+
+                <p>글씨체 적용하기</p> <input id="fontimg" type="checkbox" onclick="
+                if (document.getElementById('fontimg').checked == true) {
+                    document.getElementById('font-div').style.display = 'block';
+                } else {
+                    document.getElementById('font-div').style.display = 'none';
+                }">
+            </div>
+
+            <!-- 선택 요소 -->
+
+            <div class="int-area" id="bgimg-div" style="display: none;">
+                <input onchange="bgadress()" spellcheck="false" style="resize: none;" rows="1" type="text" id="adress" name="adress" autocomplete="off" required />
+                <label for="adress"><i class="fa-solid fa-link"></i> 이미지 주소 & 컬러코드</label>
+                <center><img id="previewimg" alt="올바른 주소가 아닙니다!" style="height: 20vh;margin-top: 2vh;"></center>
+            </div>
+
+            <style>
+                @font-face {
+                    font-family: 'ChosunGs';
+                    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGs.woff') format('woff');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+                
+                @font-face {
+                    font-family: 'yg-jalnan';
+                    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_four@1.2/JalnanOTF00.woff') format('woff');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+            </style>
+            <div class="int-area" id="font-div" style="display: none;">
+                <select id="select">
+                    <option style="font-family: 'Noto Sans KR', 'sans serif';">본고딕체</option>
+                    <option style="font-family: 'ChosunGs'">조선궁서체</option>
+                    <option style="font-family: 'KCC-Hanbit'">KCC-한빛체</option>
+                    <option style="font-family: 'yg-jalnan';">여기어때 잘난체</option>
+                </select>
+            </div>
+            <div class="btn-area">
+                <center>
+                    <input type="button" onclick="document.getElementById('result').value = submitbtn()" value="완료" />
+                    <input type="button" onclick="preview() " value="미리보기">
+                    <input disabled id="result " style="z-index: 1; position: relative; z-index: 2;">
+                </center>
+            </div>
+        </form>
+    </section>
+    <!-- <button onclick="urlsend() ">테스트 하려고 만든 버튼</button> -->
+    <script>
+        function urlsend() {
+
+            const url = 'https://openapi.naver.com/v1/util/shorturl.json?url=' + 'https://hoo091221.github.io/lunch'; // 키값
+            console.log(url);
+
+            const request = new XMLHttpRequest();
+            request.open('GET', url, true, request);
+
+            request.setRequestHeader('Naver-Client-Id', 'U2M6hd3BVqELc3S_LxNP');
+            request.setRequestHeader('Naver-Client-Secret', 'oKBhnG4_Nv');
+
+            request.onload = function() {
+                try {
+                    console.log(request);
+                } catch (error) {
+                    console.error(request);
+                }
+            };
+            request.send();
+            // 제출 이벤트로 인한 새로고침 방지
+        }
+    </script>
+</body>
+
+<!-- JS -->
+<script type="text/javascript" src="./JS/bg.js"></script>
+<script type="text/javascript" src="./JS/bgcheck.js"></script>
+<script type="text/javascript" src="./JS/submit.js"></script>
+<script type="text/javascript" src="./JS/textarea.js"></script>
+
+</html>
